@@ -2,19 +2,80 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mappe strade provinciali</title><style>
 body{font:16px system-ui,sans-serif;margin:0;padding:24px;background:#f7f7f8}
-h1{font-size:19px;color:#1F3864}a{display:block;background:#fff;border:1px solid #ddd;
+h1{font-size:19px;color:#1F3864;margin:0 0 14px}
+a{display:block;background:#fff;border:1px solid #ddd;
 border-radius:8px;padding:15px;margin:9px 0;text-decoration:none;color:#1F3864}
 a:active{background:#dbe7f6}small{color:#666;font-weight:400}
+a.qui{border:2px solid #2e7d32;background:#f1f8f1}
+b.tag{float:right;font-size:12px;color:#2e7d32;font-weight:700}
+b.lontano{float:right;font-size:12px;color:#888;font-weight:400}
+#gps{display:block;width:100%;padding:15px;font:600 16px system-ui,sans-serif;
+color:#fff;background:#1F3864;border:0;border-radius:8px;cursor:pointer}
+#gps:active{background:#2d5091}
+#msg{margin:10px 2px 16px;color:#666;font-size:14px;min-height:19px}
 </style></head><body><h1>Mappe strade provinciali</h1>
-<a href="mappa_SP_Alessandria.html"><b>Alessandria</b><br><small>229 strade &middot; 1228.5 km</small></a>
-<a href="mappa_SP_Asti.html"><b>Asti</b><br><small>105 strade &middot; 212.7 km</small></a>
-<a href="mappa_SP_Bergamo.html"><b>Bergamo</b><br><small>196 strade &middot; 998.8 km</small></a>
-<a href="mappa_SP_Cuneo.html"><b>Cuneo</b><br><small>249 strade &middot; 1694.8 km</small></a>
-<a href="mappa_SP_Lecco.html"><b>Lecco</b><br><small>43 strade &middot; 253.6 km</small></a>
-<a href="mappa_SP_Lodi.html"><b>Lodi</b><br><small>75 strade &middot; 376.1 km</small></a>
-<a href="mappa_SP_Modena.html"><b>Modena</b><br><small>mappa presente nella cartella</small></a>
-<a href="mappa_SP_Novara.html"><b>Novara</b><br><small>104 strade &middot; 493.3 km</small></a>
-<a href="mappa_SP_Torino.html"><b>Torino</b><br><small>340 strade &middot; 1576.4 km</small></a>
-<a href="mappa_SP_Valle_d_Aosta.html"><b>Valle d Aosta</b><br><small>mappa presente nella cartella</small></a>
-<a href="mappa_SP_Vercelli.html"><b>Vercelli</b><br><small>130 strade &middot; 788.2 km</small></a>
-</body></html>
+<button id="gps" onclick="dove()">Dove sono</button>
+<p id="msg"></p><div id="lista">
+<a href="mappa_SP_Alessandria.html" data-p="Alessandria"><b>Alessandria</b><br><small>229 strade &middot; 1228.5 km</small></a>
+<a href="mappa_SP_Asti.html" data-p="Asti"><b>Asti</b><br><small>105 strade &middot; 212.7 km</small></a>
+<a href="mappa_SP_Bergamo.html" data-p="Bergamo"><b>Bergamo</b><br><small>196 strade &middot; 998.8 km</small></a>
+<a href="mappa_SP_Cuneo.html" data-p="Cuneo"><b>Cuneo</b><br><small>249 strade &middot; 1694.8 km</small></a>
+<a href="mappa_SP_Lecco.html" data-p="Lecco"><b>Lecco</b><br><small>43 strade &middot; 253.6 km</small></a>
+<a href="mappa_SP_Lodi.html" data-p="Lodi"><b>Lodi</b><br><small>75 strade &middot; 376.1 km</small></a>
+<a href="mappa_SP_Modena.html" data-p="Modena"><b>Modena</b><br><small>67 strade &middot; 695.6 km</small></a>
+<a href="mappa_SP_Novara.html" data-p="Novara"><b>Novara</b><br><small>104 strade &middot; 493.3 km</small></a>
+<a href="mappa_SP_Torino.html" data-p="Torino"><b>Torino</b><br><small>340 strade &middot; 1576.4 km</small></a>
+<a href="mappa_SP_Valle_d_Aosta.html" data-p="Valle d Aosta"><b>Valle d Aosta</b><br><small>35 strade &middot; 429.1 km</small></a>
+<a href="mappa_SP_Vercelli.html" data-p="Vercelli"><b>Vercelli</b><br><small>130 strade &middot; 788.2 km</small></a>
+</div><script>
+var P=[{"n": "Alessandria", "f": "mappa_SP_Alessandria.html", "b": [8.1211, 44.496, 9.2052, 45.2015]}, {"n": "Asti", "f": "mappa_SP_Asti.html", "b": [7.9164, 44.5659, 8.495, 45.1246]}, {"n": "Bergamo", "f": "mappa_SP_Bergamo.html", "b": [9.4488, 45.4278, 10.1581, 46.0445]}, {"n": "Cuneo", "f": "mappa_SP_Cuneo.html", "b": [6.9248, 44.0783, 8.2518, 44.852]}, {"n": "Lecco", "f": "mappa_SP_Lecco.html", "b": [9.257, 45.6537, 9.5094, 46.144]}, {"n": "Lodi", "f": "mappa_SP_Lodi.html", "b": [9.3229, 45.0774, 9.8975, 45.4683]}, {"n": "Modena", "f": "mappa_SP_Modena.html", "b": [10.5253, 44.1864, 11.367, 44.9527]}, {"n": "Novara", "f": "mappa_SP_Novara.html", "b": [8.3107, 45.292, 8.8007, 45.8768]}, {"n": "Torino", "f": "mappa_SP_Torino.html", "b": [6.6618, 44.752, 8.1419, 45.562]}, {"n": "Valle d Aosta", "f": "mappa_SP_Valle_d_Aosta.html", "b": [6.9578, 45.5247, 7.8816, 45.9331]}, {"n": "Vercelli", "f": "mappa_SP_Vercelli.html", "b": [7.939, 45.172, 8.58, 45.9123]}];
+
+function dist(x,y,b){
+  var cx=Math.min(Math.max(x,b[0]),b[2]), cy=Math.min(Math.max(y,b[1]),b[3]);
+  var dx=(x-cx)*111.32*Math.cos(y*Math.PI/180), dy=(y-cy)*110.57;
+  return Math.sqrt(dx*dx+dy*dy);
+}
+function area(b){return (b[2]-b[0])*(b[3]-b[1]);}
+function dove(){
+  var m=document.getElementById('msg');
+  if(location.protocol=='file:'){
+    m.innerHTML='La posizione non funziona aprendo il file dal disco.'+
+      ' Apri questa pagina dall indirizzo del sito.';return;}
+  if(!navigator.geolocation){m.textContent='Questo dispositivo non fornisce la posizione.';return;}
+  m.textContent='Cerco la posizione...';
+  navigator.geolocation.getCurrentPosition(function(p){
+    var x=p.coords.longitude, y=p.coords.latitude, dentro=0;
+    var v=P.map(function(q){
+      return {n:q.n, f:q.f, d:q.b?dist(x,y,q.b):1e9, a:q.b?area(q.b):1e9};
+    });
+    v.sort(function(a,b){return a.d-b.d || a.a-b.a;});
+    var L=document.getElementById('lista'), carte={};
+    L.querySelectorAll('a').forEach(function(e){carte[e.dataset.p]=e;});
+    v.forEach(function(q){
+      var e=carte[q.n]; if(!e) return;
+      e.querySelectorAll('b.tag,b.lontano').forEach(function(t){t.remove();});
+      var t=document.createElement('b');
+      if(q.d===0){t.className='tag';t.textContent='sei in questa zona';
+                  e.classList.add('qui');dentro++;}
+      else if(q.d<1e8){t.className='lontano';
+                  t.textContent='a '+(q.d<10?q.d.toFixed(1):Math.round(q.d))+' km';
+                  e.classList.remove('qui');}
+      else {t.className='lontano';t.textContent='posizione ignota';
+            e.classList.remove('qui');}
+      e.insertBefore(t,e.firstChild);
+      L.appendChild(e);
+    });
+    m.innerHTML = dentro
+      ? 'Posizione trovata, precisione '+Math.round(p.coords.accuracy)+' m.'+
+        ' Il confronto usa il rettangolo che racchiude ogni provincia, non il'+
+        ' confine vero: vicino ai confini ne puo segnalare piu di una.'
+      : 'Posizione trovata, ma fuori da tutte le province in archivio.'+
+        ' Le trovi ordinate per distanza.';
+  }, function(e){
+    m.textContent = e.code==1
+      ? 'Permesso negato. Sul telefono: Impostazioni, Safari, Posizione, Chiedi.'
+      : 'Posizione non disponibile in questo momento.';
+  }, {enableHighAccuracy:true, timeout:15000, maximumAge:60000});
+}
+
+</script></body></html>
