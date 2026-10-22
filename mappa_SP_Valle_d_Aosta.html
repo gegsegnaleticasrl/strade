@@ -66,16 +66,18 @@ var D=[{"s": "SR 1", "km": 7.26, "kt": 7.15, "a": "ALTA", "kp": 0.12, "gp": {"ty
 var ANAS_DATA='';
 var map=L.map('m',{tap:false}).setView([45.75,9.75],10);
 var FONDI={
- 'Chiaro (consigliato)':L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-   {maxZoom:20,subdomains:'abcd',className:'f-chiaro',attribution:'&copy; OpenStreetMap &copy; CARTO'}),
- 'Molto chiaro':L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-   {maxZoom:20,subdomains:'abcd',className:'f-pallido',attribution:'&copy; OpenStreetMap &copy; CARTO'}),
- 'Standard':L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-   {maxZoom:20,subdomains:'abcd',attribution:'&copy; OpenStreetMap &copy; CARTO'}),
+ 'Chiaro (consigliato)':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+   {maxZoom:19,className:'f-chiaro',attribution:'&copy; Esri, HERE, Garmin, &copy; OpenStreetMap'}),
+ 'Molto chiaro':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+   {maxZoom:19,maxNativeZoom:16,attribution:'&copy; Esri, HERE, Garmin, &copy; OpenStreetMap'}),
+ 'Standard (Esri)':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+   {maxZoom:19,attribution:'&copy; Esri, HERE, Garmin, &copy; OpenStreetMap'}),
+ 'Topografico':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+   {maxZoom:19,attribution:'&copy; Esri, HERE, Garmin, &copy; OpenStreetMap'}),
  'Satellite':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-   {maxZoom:19,attribution:'&copy; Esri'}),
- 'Stradale (Esri)':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-   {maxZoom:19,attribution:'&copy; Esri'}),
+   {maxZoom:19,attribution:'&copy; Esri, Maxar, Earthstar Geographics'}),
+ 'OpenStreetMap (solo dal sito)':L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+   {maxZoom:19,attribution:'&copy; OpenStreetMap'}),
  'Bianco (per stampa)':L.tileLayer('',{maxZoom:19})
 };
 FONDI['Chiaro (consigliato)'].addTo(map);
