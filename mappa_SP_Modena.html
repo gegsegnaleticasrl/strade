@@ -53,7 +53,8 @@ body{font:15px system-ui,-apple-system,sans-serif;display:flex;overflow:hidden}
  <div id="bar">Selezionate: <span id="cnt">0</span>
   <div><button onclick="tutte(1)">Tutte</button><button onclick="tutte(0)">Nessuna</button>
   <button onclick="zoom()">Inquadra</button>
-  <button onclick="dove()">Dove sono</button></div></div>
+  <button onclick="dove()">Dove sono</button>
+  <button id="bTorna" onclick="torna()" style="display:none">Torna al pallino</button></div></div>
  <div id="lista"></div>
  <div id="exp">
   <button onclick="gpx()">Esporta GPX</button>
@@ -93,16 +94,31 @@ function colore(i){
   for(var j=0;j<PAL.length;j++) if(!pres[PAL[j]]){usati[i]=PAL[j];return PAL[j];}
   usati[i]=PAL[Object.keys(usati).length%PAL.length]; return usati[i];
 }
-var mePos=null;
+// Il pallino segue te, la mappa no. Alla prima posizione trovata la vista si
+// sposta una volta sola; dopo resta dove la lasci, cosi' puoi girare sulle
+// strade selezionate senza essere riportato indietro. Per tornare sul pallino
+// c'e' il pulsante apposito, che compare solo quando la posizione e' nota.
+var mePos=null, meCer=null, inquadra=0;
 function dove(){
   if(!navigator.geolocation){alert('Il telefono non fornisce la posizione.');return;}
-  map.locate({setView:true,maxZoom:15,enableHighAccuracy:true,watch:true});
+  inquadra=1;
+  map.locate({setView:false,enableHighAccuracy:true,watch:true,maximumAge:5000});
+}
+function torna(){
+  if(mePos) map.setView(mePos.getLatLng(),Math.max(map.getZoom(),15));
+  else dove();
 }
 map.on('locationfound',function(e){
   if(mePos) map.removeLayer(mePos);
+  if(meCer) map.removeLayer(meCer);
+  if(e.accuracy>25) meCer=L.circle(e.latlng,{radius:e.accuracy,color:'#1976d2',
+    weight:1,opacity:.45,fillColor:'#1976d2',fillOpacity:.08,
+    interactive:false}).addTo(map);
   mePos=L.circleMarker(e.latlng,{radius:8,color:'#fff',weight:3,
     fillColor:'#1976d2',fillOpacity:1}).bindTooltip('Sei qui',
     {permanent:true,direction:'top',className:'kmt'}).addTo(map);
+  var b=document.getElementById('bTorna'); if(b) b.style.display='';
+  if(inquadra){inquadra=0;map.setView(e.latlng,Math.max(map.getZoom(),15));}
 });
 map.on('locationerror',function(){
   alert('Posizione non disponibile.\n\nI browser la forniscono solo su pagine https.\n'+
